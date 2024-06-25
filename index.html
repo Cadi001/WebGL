@@ -1,122 +1,232 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | FusionCoreFuncTest</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-  </head>
-  <body>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
-        </div>
-      </div>
-      <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">FusionCoreFuncTest</div>
-      </div>
-    </div>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>I-Hopper</title>
+    <link rel="stylesheet" href="assets/vendors/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=en"></script>
+
+
     <script>
-
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-      var warningBanner = document.querySelector("#unity-warning");
-
-      // Shows a temporary message banner/ribbon for a few seconds, or
-      // a permanent error message on top of the canvas if type=='error'.
-      // If type=='warning', a yellow highlight color is used.
-      // Modify or remove this function to customize the visually presented
-      // way that non-critical warnings and error messages are presented to the
-      // user.
-      function unityShowBanner(msg, type) {
-        function updateBannerVisibility() {
-          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                includedLanguages: 'en,ja,tl,ar,ko', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: true
+            }, 'google_translate_element');
         }
-        var div = document.createElement('div');
-        div.innerHTML = msg;
-        warningBanner.appendChild(div);
-        if (type == 'error') div.style = 'background: red; padding: 10px;';
-        else {
-          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-          setTimeout(function() {
-            warningBanner.removeChild(div);
-            updateBannerVisibility();
-          }, 5000);
-        }
-        updateBannerVisibility();
-      }
-
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/NewWebGL.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/NewWebGL.data",
-        frameworkUrl: buildUrl + "/NewWebGL.framework.js",
-        codeUrl: buildUrl + "/NewWebGL.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "FusionCoreFuncTest",
-        productVersion: "0.1.0",
-        showBanner: unityShowBanner,
-      };
-
-      // By default, Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
-
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
-
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-        container.className = "unity-mobile";
-        canvas.className = "unity-mobile";
-
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
-
-
-      } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
-      }
-
-      loadingBar.style.display = "block";
-
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-              }).then((unityInstance) => {
-                loadingBar.style.display = "none";
-                fullscreenButton.onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
-              }).catch((message) => {
-                alert(message);
-              });
-            };
-
-      document.body.appendChild(script);
-
     </script>
-  </body>
+
+</head>
+
+<body>
+    <header class="foi-header landing-header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light foi-navbar">
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/images/ihopper.svg" alt="ihopper">
+                </a>
+                <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="tutorials.html">Tutorials</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav mt-2 mt-lg-0">
+                        <li class="nav-item mr-2 mb-3 mb-lg-0">
+                            <a class="btn btn-secondary" href="register.html">Sign up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-secondary" href="login.html">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <div id="google_translate_element" class="mr-2"></div>
+                        </li>
+                        
+                    </ul>
+                    
+                </div>
+            </nav>
+            <div class="header-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a class="ihopper-title" >
+                            <img src="assets/images/ihoppertitle.svg" alt="ihopper title">
+                        </a>
+                        <p class="text-dark">The vibrancy of the Philippines in the palm of your hand! A highly customizable digital space where your unique avatar can roam in this novel portal map site - let's GO!</p>
+                        <a href="ihopper.html" class="btn btn-primary mb-4">Try Now</a>
+                        <div class="my-2">
+                            <p class="header-app-download-title">GET OUR MOBILE APP</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-app-download mr-2"><img src="assets/images/ios.svg" alt="App store"></button>
+                            <button class="btn btn-app-download"><img src="assets/images/android.svg" alt="play store"></button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="assets/images/ihopperpc.png" alt="app" width="1500px" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="py-5 mb-5">
+        <div class="container">
+            <h2 class="section-title">Promotions</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-6 mb-lg-0">
+                    <h5>Angeles City Space Arrival Fest</h5>
+                                    <p>1,000 billy awarded for new member registration! 
+                                        Get billy just for walking around - up to 5,000 billy!</p>
+                    <p class="mb-5"><a href="#!" class="text-primary mb-5">Find out more</a></p>
+                    <h5>Dream Free Shop Plan Unleashed</h5>
+                                    <p>For a limited time! Freely operate your shop in the space for 3 months for FREE!
+                                        Make your ideal shop a reality now!</p>
+                    <p class="mb-5"><a href="#!" class="text-primary mb-5">Find out more</a></p>
+                </div>
+                <div class="col-lg-6 mb-6 mb-lg-0">
+                    <h5>Customize Your Avatar & Shop with Points</h5>
+                                    <p>Use points to create your unique avatar & space exactly as desired!
+                                        The era of unleashing your individuality in Angeles City has arrived!</p>
+                    <p class="mb-5"><a href="#!" class="text-primary mb-5">Find out more</a></p>
+                    <h5>Come Forth! Supreme Philippine Experience Seekers</h5>
+                                    <p>By exploring every corner of the space, you'll earn the revered title of Angeles City Master!
+                                        Become a legendary figure who attains the supreme Philippine experience!</p>
+                    <p class="mb-5"><a href="#!" class="text-primary mb-5">Find out more</a></p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <section class="py-5 mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-5 mb-md-0 d-flex justify-content-center">
+                    <img src="assets/images/phonemap.png" alt="special offers" class="img-fluid" style="height: auto;">
+                </div>
+                <div class="col-md-6">
+                    <h2 class="section-title">Application Features</h2>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="media landing-feature">
+                                <span class="landing-feature-icon"></span>
+                                <div class="media-body">
+                                    <h5>Avatar Movement</h5>
+                                    <p class="text-dark">Enables seamless navigation of the map with avatars capable of walking and roaming for immersive exploration.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="media landing-feature">
+                                <span class="landing-feature-icon"></span>
+                                <div class="media-body">
+                                    <h5>Establishment Interaction</h5>
+                    <p class="text-dark">Allows avatars to interact with virtual buildings, objects, and activities for enhanced immersion. </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="media landing-feature">
+                                <span class="landing-feature-icon"></span>
+                                <div class="media-body">
+                                    <h5>Secured Data</h5>
+                    <p class="text-dark">Secures user data with encryption, robust access controls, and regular security audits.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="media landing-feature">
+                                <span class="landing-feature-icon"></span>
+                                <div class="media-body">
+                                    <h5>Social Interaction</h5>
+                    <p class="text-dark">Promotes avatar interaction with text chat and group gatherings, boosting virtual community engagement.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="foi-footer text-white">
+        <div class="container">
+            <div class="row footer-content">
+                <div class="col-xl-6 col-lg-7 col-md-8">
+                    <h2 class="mb-0">Do you want to know more or just have a question? write to us.</h2>
+                </div>
+                <div class="col-md-4 col-lg-5 col-xl-6 py-3 py-md-0 d-md-flex align-items-center justify-content-end">
+                    <a href="contact.html" class="btn btn-danger btn-lg">Contact form</a>
+                </div>
+            </div>
+            <div class="row footer-widget-area">
+                <div class="col-md-3">
+                    <p class="font-os font-weight-semibold mb3">Get our mobile app</p>
+                    <div>
+                        <button class="btn btn-app-download mr-2"><img src="assets/images/ios.svg" alt="App store"></button>
+                        <button class="btn btn-app-download"><img src="assets/images/android.svg" alt="play store"></button>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-3 mt-md-0">
+                    <nav>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="#!" class="nav-link">Account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#!" class="nav-link">Edit profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#!" class="nav-link">Activity</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-3 mt-3 mt-md-0">
+                    <nav>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="#!" class="nav-link">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#!" class="nav-link">Services</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-3 mt-3 mt-md-0">
+                    <p>
+                        &copy; ihopper 2024
+                    </p>
+                    <p>All rights reserved.</p>
+                    <nav class="social-menu">
+                        <a href="#!"><img src="assets/images/facebook.svg" alt="facebook"></a>
+                        <a href="#!"><img src="assets/images/instagram.svg" alt="instagram"></a>
+                        <a href="#!"><img src="assets/images/twitter.svg" alt="twitter"></a>
+                        <a href="#!"><img src="assets/images/youtube.svg" alt="youtube"></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/vendors/jquery/jquery.min.js"></script>
+    <script src="assets/vendors/popper.js/popper.min.js"></script>
+    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    
+    
+</body>
+
 </html>
