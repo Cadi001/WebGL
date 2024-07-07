@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I-Hopper Map</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #videoContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s;
+            z-index: 1;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="videoContainer">
+        <video id="introVideo" autoplay muted>
+            <source src="assets/vid/ihopper.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="content">
+        <iframe src="https://cadi001.github.io/WebGL/game.html" frameborder="0"></iframe>
+    </div>
+    <script>
+        const video = document.getElementById('introVideo');
+        const videoContainer = document.getElementById('videoContainer');
+        const content = document.getElementById('content');
+
+        video.oncanplay = () => {
+            video.play().catch(error => {
+                console.error('Error playing video:', error);
+            });
+        };
+
+        video.onended = () => {
+            videoContainer.style.transition = 'opacity 1s';
+            videoContainer.style.opacity = 0;
+
+            setTimeout(() => {
+                videoContainer.style.display = 'none';
+                content.style.opacity = 1;
+            }, 1000);
+        };
+
+        video.onerror = () => {
+            console.error('Error loading video');
+            videoContainer.style.display = 'none';
+            content.style.opacity = 1;
+        };
+    </script>
+</body>
+</html>
